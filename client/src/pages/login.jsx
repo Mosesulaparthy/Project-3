@@ -1,8 +1,9 @@
 import React from "react";
 
+
 function Login() {
   return (
-    <div class="login">
+    <div>
     <form className="loginForm">
       <label>
         Username:
