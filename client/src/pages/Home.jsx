@@ -6,7 +6,7 @@ const Home = () => {
     <div>
     <nav className="navbar">
       <button to='/search' class="search">Search</button>
-      <button to='/login' class="login">Login</button>
+      <button to='/login' class="loginNav">Login</button>
     </nav>
     </div>
   );

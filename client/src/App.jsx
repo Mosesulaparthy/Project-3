@@ -7,12 +7,8 @@ import "./styles/App.css";
 function App() {
   return (
     <div className="app">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </Router>
+      <Home />
+      <Login />
     </div>
   );
 }

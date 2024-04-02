@@ -1,9 +1,9 @@
 import React from "react";
-
+import "../styles/login.css"
 
 function Login() {
   return (
-    <div>
+    <div className="login">
     <form className="loginForm">
       <label>
         Username:
