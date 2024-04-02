@@ -1,0 +1,19 @@
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #f48c8c;
+}
+
+.search,
+.login {
+  margin: 0 10px;
+  border: none; 
+  background-color: transparent; 
+  cursor: pointer;
+}
