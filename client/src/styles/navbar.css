@@ -1,3 +1,5 @@
+
+
 .navbar {
   display: flex;
   justify-content: flex-end;
@@ -9,9 +11,16 @@
   left: 0;
   background-color: #f48c8c;
 }
+.homeNav {
+  margin-right: auto;
+  text-decoration: none;
+  color: inherit; 
+}
 
-.search,
+.searchNav,
 .loginNav {
+  text-decoration: none;
+  color: inherit; 
   margin: 0 10px;
   border: none; 
   background-color: transparent; 
