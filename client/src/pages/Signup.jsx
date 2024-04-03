@@ -1,13 +1,16 @@
 import React from 'react';
 import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-import "../styles/login.css"
-import Auth from '../utils/auth';
-import { loginUser } from '../utils/API';
 import { Link } from 'react-router-dom';
-const LoginForm = () => {
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+import { createUser } from '../utils/API';
+import Auth from '../utils/auth';
+import "../styles/login.css";
+const SignupForm = () => {
+  // set initial form state
+  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+  // set state for form validation
   const [validated] = useState(false);
+  // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
   const handleInputChange = (event) => {
@@ -26,7 +29,7 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await loginUser(userFormData);
+      const response = await createUser(userFormData);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
@@ -48,15 +51,18 @@ const LoginForm = () => {
   };
 
   return (
-    <div className='login'>
+    <div className='signup'>
+      {/* This is needed for the validation functionality above */}
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+        {/* show alert if server response is bad */}
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-          Something went wrong with your login credentials!
+          Something went wrong with your signup!
         </Alert>
+
         <Form.Group className='mb-3'>
           <Form.Label htmlFor='username'>Username</Form.Label>
           <Form.Control
-            type='username'
+            type='text'
             placeholder='Your username'
             name='username'
             onChange={handleInputChange}
@@ -64,11 +70,12 @@ const LoginForm = () => {
             required
           />
         </Form.Group>
+
         <Form.Group className='mb-3'>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='Your email'
+            type='email'
+            placeholder='Your email address'
             name='email'
             onChange={handleInputChange}
             value={userFormData.email}
@@ -88,15 +95,15 @@ const LoginForm = () => {
           />
         </Form.Group>
         <Button
-          disabled={!(userFormData.email && userFormData.password)}
+          disabled={!(userFormData.username && userFormData.email && userFormData.password)}
           type='submit'
           variant='success'>
           Submit
         </Button>
       </Form>
-      <Link to="/signup" className="signup">Signup Instead</Link>
+      <Link to="/login" className='login'>login Instead</Link>
     </div>
   );
 };
 
-export default LoginForm;
+export default SignupForm;
