@@ -13,4 +13,6 @@ const recipeSchema = new Schema({
         step: String
     }], 
 });
-module.exports = mongoose.model('Recipe', recipeSchema)
+const Recipe = model('Recipe', recipeSchema)
+
+module.exports = Recipe
