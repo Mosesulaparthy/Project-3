@@ -10,7 +10,7 @@ const Navbar = () => {
           <Link to="/" className="homeNav">
             Home
           </Link>
-          <Link to="/search" className="searchNav">
+          <Link to="/recipe-search" className="searchNav">
             Search
           </Link>
           <a className="logoutNav" href="/" onClick={() => Auth.logout()}>
@@ -26,7 +26,7 @@ const Navbar = () => {
           <Link to="/" className="homeNav">
             Home
           </Link>
-          <Link to="/search" className="searchNav">
+          <Link to="/recipe-search" className="searchNav">
             Search
           </Link>
           <Link to="/login" className="loginNav">
