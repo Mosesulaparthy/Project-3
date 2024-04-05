@@ -1,10 +1,12 @@
 const fetch = require('node-fetch');
-
+const User = require('../models/User');
+const { signToken, AuthenticationError } = require('../utils/auth');
 const ChatGptApiUrl = 'https://api.openai.com/v4/completions'
 const API_KEY = process.env.CHAT_GPT_API_KEY;
 
 const resolvers = {
     Query: {
+
         getRecipeSuggestions: async (_, { ingredients }) => {
             try {
                 const response = await fetch(ChatGptApiUrl, {
@@ -31,7 +33,16 @@ const resolvers = {
                 console.error('Error fetching recipe suggestions:', error);
                 throw new Error('error');
             }
-        }
+        },
+
+        user: async (parent, args, context) => {
+            if (context.user) {
+                const user = await User.findById(context.user._id).populate({
+                });
+                return user;
+            }
+            throw AuthenticationError;
+        },
     },
     Mutation: {
         addUser: async (parent, args) => {

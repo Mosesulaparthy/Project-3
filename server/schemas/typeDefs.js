@@ -6,10 +6,14 @@ type User {
     firstName: String
     lastName: String
     email: String
-    orders: [Order]
+  }
+  type Auth {
+    token: ID
+    user: User
   }
 type Query{
     getRecipeSuggestions(ingredients: [String]!): String
+    user: User
 }
 type Mutation {
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth

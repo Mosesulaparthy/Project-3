@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "../styles/ingredientForm.css"
 
 function IngredientsForm() {
 
@@ -24,7 +25,7 @@ function IngredientsForm() {
   };
 
   return (
-    <div>
+    <div className='userForm'>
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="ingredients">Ingredients:</label>
