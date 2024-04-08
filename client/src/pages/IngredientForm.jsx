@@ -1,32 +1,25 @@
 import React, { useState } from 'react';
+import { gql, useLazyQuery } from '@apollo/client';
 import "../styles/ingredientForm.css"
 
+const GET_RECIPE_SUGGESTIONS = gql`
+  query GetRecipeSuggestions($ingredients: [String]!) {
+    getRecipeSuggestions(ingredients: $ingredients)
+  }
+`;
+
 function IngredientsForm() {
-
   const [ingredients, setIngredients] = useState('');
-  const [recipe, setRecipe] = useState('');
+  const [getRecipeSuggestions, { called, loading, data }] = useLazyQuery(GET_RECIPE_SUGGESTIONS);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const response = await fetch('/api/recipe-suggestions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ingredients: ingredients.split(',').map(ingredient => ingredient.trim()) }),
-    });
-    const data = await response.json();
-    if (data.recipe) {
-      setRecipe(data.recipe);
-    } else {
-      console.error('No recipe found');
-      setRecipe('');
-    }
+    const ingredientList = ingredients.split(',').map(ingredient => ingredient.trim());
+    getRecipeSuggestions({ variables: { ingredients: ingredientList } });
   };
 
   return (
     <div className='userForm'>
-
       <form onSubmit={handleSubmit}>
         <label htmlFor="ingredients">Ingredients:</label>
         <input
@@ -36,17 +29,16 @@ function IngredientsForm() {
           onChange={(e) => setIngredients(e.target.value)}
           placeholder="Enter ingredients separated by commas"
         />
-
         <button type="submit">Get Recipe</button>
       </form>
 
-      {recipe && (
+      {called && loading && <p>Loading...</p>}
+      {data && (
         <div>
-          <h2>Recipe Suggestion</h2>
-          <p>{recipe}</p>
+          <h2>Recipe Suggestion:</h2>
+          <p>{data.getRecipeSuggestions}</p>
         </div>
       )}
-
     </div>
   );
 }
