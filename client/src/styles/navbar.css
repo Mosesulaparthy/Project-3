@@ -18,7 +18,8 @@
 }
 
 .searchNav,
-.loginNav {
+.loginNav,
+.logoutNav {
   text-decoration: none;
   color: inherit; 
   margin: 0 10px;
