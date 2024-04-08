@@ -1,38 +1,47 @@
-const fetch = require('node-fetch');
 const User = require('../models/User');
 const { signToken, AuthenticationError } = require('../utils/auth');
-const ChatGptApiUrl = 'https://api.openai.com/v4/completions'
-const API_KEY = process.env.CHAT_GPT_API_KEY;
+const { OpenAI } = require('openai');
+
+require('dotenv').config()
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
+
+async function getRecipeSuggestions(ingredients) {
+    try {
+        const prompt = `Given these ingredients: ${ingredients.join(', ')}, generate a simple recipe with the steps:`;
+
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [{
+                role: "system",
+                content: "You are a helpful assistant."
+            }, {
+                role: "user",
+                content: prompt
+            }]
+        });
+        console.log(response.choices[0])
+        // if (!response.data || !response.data.choices || response.data.choices.length === 0) {
+        //     console.error('Unexpected response format:', response);
+        //     return "I'm sorry, I couldn't generate a recipe with those ingredients.";
+        // }
+       
+        const messageContent = response.choices[0]
+        return messageContent;
+
+    } catch (error) {
+        console.error("error fetching the recipe")
+    }
+}
+
 
 const resolvers = {
     Query: {
 
         getRecipeSuggestions: async (_, { ingredients }) => {
-            try {
-                const response = await fetch(ChatGptApiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${API_KEY}`,
-                    },
-                    body: JSON.stringify({
-                        model: 'text-davinci-003',
-                        prompt: `Given these ingredients: ${ingredients.join(', ')}, generate a simple recipe:`,
-                        temperature: 0.7,
-                        max_tokens: 150,
-                    }),
-                });
-                const data = await response.json();
-                if (data.choices && data.choices.length > 0) {
-                    const recipeText = data.choices[0].text.trim();
-                    return recipeText;
-                } else {
-                    throw new Error('Failed to fetch recipe suggestions.');
-                }
-            } catch (error) {
-                console.error('Error fetching recipe suggestions:', error);
-                throw new Error('error');
-            }
+            return getRecipeSuggestions(ingredients);
         },
 
         user: async (parent, args, context) => {
@@ -45,27 +54,23 @@ const resolvers = {
         },
     },
     Mutation: {
+
         addUser: async (parent, args) => {
             const user = await User.create(args);
             const token = signToken(user);
-
             return { token, user };
         },
+
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
-
             if (!user) {
                 throw AuthenticationError;
             }
-
             const correctPw = await user.isCorrectPassword(password);
-
             if (!correctPw) {
                 throw AuthenticationError;
             }
-
             const token = signToken(user);
-
             return { token, user };
         }
     }
