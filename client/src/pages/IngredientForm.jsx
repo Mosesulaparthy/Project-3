@@ -6,7 +6,7 @@ import { GET_RECIPE_SUGGESTIONS } from '../utils/queries';
 
 function IngredientsForm() {
   const [ingredients, setIngredients] = useState('');
-  const [getRecipeSuggestions, {data }] = useLazyQuery(GET_RECIPE_SUGGESTIONS);
+  const [getRecipeSuggestions, { data }] = useLazyQuery(GET_RECIPE_SUGGESTIONS);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,8 +52,10 @@ function IngredientsForm() {
 
       {data && (
         <div>
-          <h2>Recipe Suggestion:</h2>
-          {renderRecipe(data.getRecipeSuggestions)}
+          <div>
+            <h2>Recipe Suggestion:</h2>
+            {renderRecipe(data.getRecipeSuggestions)}
+          </div>
         </div>
       )}
     </div>
