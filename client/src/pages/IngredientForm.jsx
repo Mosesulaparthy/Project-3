@@ -4,12 +4,6 @@ import "../styles/ingredientForm.css"
 import { GET_RECIPE_SUGGESTIONS } from '../utils/queries';
 
 
-// const GET_RECIPE_SUGGESTIONS = gql`
-//   query GetRecipeSuggestions($ingredients: [String]!) {
-//     getRecipeSuggestions(ingredients: $ingredients)
-//   }
-// `;
-
 function IngredientsForm() {
   const [ingredients, setIngredients] = useState('');
   const [getRecipeSuggestions, {data }] = useLazyQuery(GET_RECIPE_SUGGESTIONS);
@@ -20,6 +14,28 @@ function IngredientsForm() {
     getRecipeSuggestions({ variables: { ingredients: ingredientList } });
   };
 
+  const renderRecipe = (recipeText) => {
+    const sections = recipeText.split('\n\n');
+    return sections.map((section, index) => {
+      const items = section.split('\n').filter(line => line.trim() !== '');
+      if (items.length > 1) {
+        const title = items[0];
+        const listItems = items.slice(1);
+        return (
+          <div key={index}>
+            <h3>{title}</h3>
+            <ul>
+              {listItems.map((item, itemIndex) => (
+                <li key={itemIndex}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        );
+      } else {
+        return <p key={index}>{section}</p>;
+      }
+    });
+  };
   return (
     <div className='userForm'>
       <form onSubmit={handleSubmit}>
@@ -37,7 +53,7 @@ function IngredientsForm() {
       {data && (
         <div>
           <h2>Recipe Suggestion:</h2>
-          <p>{data.getRecipeSuggestions}</p>
+          {renderRecipe(data.getRecipeSuggestions)}
         </div>
       )}
     </div>
