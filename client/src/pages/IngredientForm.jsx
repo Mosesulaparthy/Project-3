@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { gql, useLazyQuery } from '@apollo/client';
 import "../styles/ingredientForm.css"
+import { GET_RECIPE_SUGGESTIONS } from '../utils/queries';
 
-const GET_RECIPE_SUGGESTIONS = gql`
-  query GetRecipeSuggestions($ingredients: [String]!) {
-    getRecipeSuggestions(ingredients: $ingredients)
-  }
-`;
+
+// const GET_RECIPE_SUGGESTIONS = gql`
+//   query GetRecipeSuggestions($ingredients: [String]!) {
+//     getRecipeSuggestions(ingredients: $ingredients)
+//   }
+// `;
 
 function IngredientsForm() {
   const [ingredients, setIngredients] = useState('');
-  const [getRecipeSuggestions, { called, loading, data }] = useLazyQuery(GET_RECIPE_SUGGESTIONS);
+  const [getRecipeSuggestions, {data }] = useLazyQuery(GET_RECIPE_SUGGESTIONS);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,7 +34,6 @@ function IngredientsForm() {
         <button type="submit">Get Recipe</button>
       </form>
 
-      {called && loading && <p>Loading...</p>}
       {data && (
         <div>
           <h2>Recipe Suggestion:</h2>

@@ -18,9 +18,7 @@
     },
     "dependencies": {
         "dotenv": "^16.4.5",
-        "openai": "^4.32.2"
-    },
-    "dependencies": {
+        "openai": "^4.32.2",
         "@apollo/client": "^3.9.10",
         "@apollo/server": "^4.10.2"
     }
