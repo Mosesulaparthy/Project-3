@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { gql, useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import "../styles/ingredientForm.css"
 import { GET_RECIPE_SUGGESTIONS } from '../utils/queries';
 
