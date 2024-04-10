@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import "../styles/ingredientForm.css"
-import { GET_RECIPE_SUGGESTIONS } from '../utils/queries';
+import { GET_RECIPE_SUGGESTIONS, GET_RECIPE_IMAGE } from '../utils/queries';
 
 
 function IngredientsForm() {
   const [ingredients, setIngredients] = useState('');
-  const [getRecipeSuggestions, { data }] = useLazyQuery(GET_RECIPE_SUGGESTIONS);
+  const [image, setImage] = useState('');
+
+
+  const [getRecipeSuggestions, { data }] = useLazyQuery(GET_RECIPE_SUGGESTIONS, {
+    onCompleted: (data) => {
+      const recipeTitle = data.getRecipeSuggestions.split('\n')[0];
+      getRecipeImage({ variables: { prompt: recipeTitle } });
+    }
+  });
+  const [getRecipeImage] = useLazyQuery(GET_RECIPE_IMAGE, {
+    onCompleted: (data) => {
+      setImage(data.getRecipeImage);
+    }
+  });
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,6 +72,14 @@ function IngredientsForm() {
           </div>
         </div>
       )}
+
+      {image && (
+        <div className='recipe-image-container'>
+          <h2>Recipe Image:</h2>
+          <img src={image} alt="Generated Recipe" className='recipe-image'/>
+        </div>
+      )}
+
     </div>
   );
 }

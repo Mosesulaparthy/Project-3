@@ -8,20 +8,21 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-// async function generateRecipeImage(prompt) {
-//     try {
-//         const response = await openai.createImage({
-//             model: "dall-e-3",
-//             prompt: prompt,
-//             n: 1,
-//             size: "1024x1024",
-//         });
-//         console.log(response)
-//     } catch (error) {
-//         console.log('error fetching api for image')
-//     }
-
-// };
+async function generateRecipeImage(prompt) {
+    try {
+        const response = await openai.images.generate({
+            model: "dall-e-2",
+            prompt: prompt,
+            n: 1,
+            size: "1024x1024",
+        });
+        const imageUrl = response.data[0].url;
+        return imageUrl;
+    } catch (error) {
+        console.error("Error generating recipe image:", error);
+        throw new Error('Failed to generate recipe image due to an API error.');
+    }
+}
 
 const resolvers = {
     Query: {
@@ -48,10 +49,10 @@ const resolvers = {
             }
             return getRecipeSuggestions(ingredients);
         },
-        //for image of recipe
-        // getRecipeImage: async (_, { prompt }) => {
-        //     return generateRecipeImage(prompt)
-        // },
+
+        getRecipeImage: async (_, { prompt }) => {
+            return generateRecipeImage(prompt)
+        },
 
         user: async (parent, args, context) => {
             if (context.user) {
