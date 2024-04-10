@@ -1,28 +1,56 @@
-.login {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  padding: 10px;
-}
-
-.signup {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  padding: 10px;
-}
-
-
 label {
   display: grid;
   width: 140px;
   text-align: left;
+}
+/* Login Page */
+.login-container {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 10px;
+}
+
+.signup-link {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: black;
+  margin-right: 10px; 
+  
+}
+
+.form-container {
+  flex-grow: .1;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+/* Signup Page */
+.signup-container {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 10px;
+}
+
+.login-link {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: black;
+  margin-right: 10px; 
+  
+}
+
+.form-group {
+  margin-bottom: 10px;
 }
