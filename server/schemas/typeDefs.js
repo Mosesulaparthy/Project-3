@@ -1,5 +1,3 @@
-// const { gql } = require('apollo-server-express');
-
 const typeDefs = `
 type User {
     _id: ID
@@ -13,6 +11,7 @@ type User {
   }
 type Query{
     getRecipeSuggestions(ingredients: [String]!): String
+    getRecipeImage(prompt: String!): String
     user: User
 }
 type Mutation {
