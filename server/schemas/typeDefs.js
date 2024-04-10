@@ -11,6 +11,7 @@ type User {
   }
 type Query{
     getRecipeSuggestions(ingredients: [String]!): String
+    getRecipeImage(prompt: String!): String
     user: User
 }
 type Mutation {
