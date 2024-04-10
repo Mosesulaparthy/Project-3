@@ -5,6 +5,7 @@ label {
 }
 /* Login Page */
 .login-container {
+  background-color: lightgrey;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   color: black;
@@ -16,6 +17,7 @@ label {
 }
 
 .signup-link {
+  
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   color: black;
@@ -24,6 +26,7 @@ label {
 }
 
 .form-container {
+  
   flex-grow: .1;
 }
 
@@ -33,6 +36,7 @@ label {
 
 /* Signup Page */
 .signup-container {
+  background-color: lightgrey;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   color: black;
