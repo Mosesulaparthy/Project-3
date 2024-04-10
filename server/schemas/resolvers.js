@@ -29,7 +29,10 @@ const resolvers = {
 
         getRecipeSuggestions: async (_, { ingredients }) => {
             try {
+
                 const prompt = `Given these ingredients: ${ingredients.join(', ')}, generate a simple recipe with the steps along with youtube video link that would most closely follow the recipe`;
+
+
 
                 const response = await openai.chat.completions.create({
                     model: "gpt-4",
