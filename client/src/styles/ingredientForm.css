@@ -10,6 +10,12 @@
      padding: 10px;
  }
 
+ .userForm.formSubmitted {
+    align-items: flex-start; 
+    padding: 30px;
+    height: 150vh;
+  }
+
  .login {
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
       "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -17,6 +23,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 150vh;
     padding: 10px;
   }
+
+  .recipeForm {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    color: black;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    height: 150vh;
+    padding: 10px;
+}

@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import "../styles/ingredientForm.css";
 import { GET_RECIPE_SUGGESTIONS, GET_RECIPE_IMAGE } from "../utils/queries";
-import Auth from "../utils/auth"
+import Auth from "../utils/auth";
 
 function IngredientsForm() {
   const [ingredients, setIngredients] = useState("");
   const [image, setImage] = useState("");
+  const [formSubmitted, setFormSubmitted] = useState(false); // Corrected variable name
 
   const [getRecipeSuggestions, { data }] = useLazyQuery(
     GET_RECIPE_SUGGESTIONS,
@@ -29,6 +30,7 @@ function IngredientsForm() {
       .split(",")
       .map((ingredient) => ingredient.trim());
     getRecipeSuggestions({ variables: { ingredients: ingredientList } });
+    setFormSubmitted(true);
   };
 
   const renderRecipe = (recipeText) => {
@@ -53,9 +55,10 @@ function IngredientsForm() {
       }
     });
   };
+
   if (Auth.loggedIn()) {
     return (
-      <div className="userForm">
+      <div className={`userForm ${formSubmitted ? "formSubmitted" : ""}`}>
         <form onSubmit={handleSubmit}>
           <label htmlFor="ingredients">Ingredients:</label>
           <input
@@ -69,12 +72,11 @@ function IngredientsForm() {
         </form>
 
         {data && (
-          <div>
+          <div className="recipeForm">
             <div>
               <h2>Recipe Suggestion:</h2>
               {renderRecipe(data.getRecipeSuggestions)}
-            </div><footer></footer>
-            
+            </div>
           </div>
         )}
 
@@ -87,11 +89,15 @@ function IngredientsForm() {
       </div>
     );
   } else {
-    return (
-      <div className='login'>
-      <h1>Please <a href="/login">login</a> in order to access our recipe search engine.</h1>
-    </div>
-    );
+    // Redirect to login page
+    window.location.replace("/login");
+
+    // Alternatively, you can display a message prompting the user to login
+    // return (
+    //   <div className='login'>
+    //     <h1>Please <a href="/login">login</a> in order to access our recipe search engine.</h1>
+    //   </div>
+    // );
   }
 }
 
