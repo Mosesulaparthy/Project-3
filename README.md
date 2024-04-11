@@ -26,4 +26,4 @@ Frontend: Powered by React.js, the frontend delivers a dynamic and interactive u
 
 ### Deployed Website
 
-https://damp-brook-32817-e12b8e32d07c.herokuapp.com/recipe-searchLinks to an external site.
+https://damp-brook-32817-e12b8e32d07c.herokuapp.com/recipe-search
